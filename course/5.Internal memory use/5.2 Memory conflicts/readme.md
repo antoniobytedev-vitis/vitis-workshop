@@ -1,43 +1,58 @@
-# Main issues
-When designing FPGA-based systems using VITIS HLS, it is important to understand that while we are using c++ the underlying hardware imposes restrictions on us that are not normally present in the language.
+# Problems Accessing Memory – Data Bus Underutilization
+In FPGA designs using Vitis HLS, memory bandwidth is often a bottleneck. Modern FPGA systems frequently use wide memory buses (e.g., 16-bit, 32-bit, or 64-bit AXI buses) to transfer data efficiently. However, poor memory layout can lead to underutilization of these buses, reducing performance despite available bandwidth.
 
-Let's take a look at the following examples:
+## The Problem
+Consider an FPGA connected to memory with a 16-bit data bus, but your algorithm uses:
+```c
+char data[256]; // 8-bit elements
+```
+Without any optimization:
+
+Each read or write accesses only 8 bits of the 16-bit bus.
+
+50% of the bandwidth is wasted on every transfer.
+
+If your algorithm requires high throughput, this limitation can prevent the loop from achieving II=1 (full pipelining).
+
+### example 1
 ```cpp
-void example1(int a[256],int result[64]) 
-{
-    for(int i=0;i<64;i++)
-    {   
-        result[i] = a[i]+a[i+1];
+void process(char data[256], char out[256]) {
+#pragma HLS PIPELINE
+    for (int i = 0; i < 256; i++) {
+        out[i] = data[i] + 1;
     }
 }
+
 ```
+Each cycle, only 1 byte (8 bits) is transferred on a 16-bit bus.
+
+You require 256 cycles to process the entire array.
+
+The hardware is underutilized, and throughput is limited.
+
+## The Solution: Using ARRAY_RESHAPE
+By using #pragma HLS ARRAY_RESHAPE, you can reorganize the array layout to group multiple elements into a single wider memory word. This allows the hardware to utilize the full width of the bus in each transfer, improving throughput and reducing stalls.
+
 ```cpp
-void example2(int a[256],int result[64]) 
-{
-    for(int i=0;i<64;i++)
-    {   
-        result[i] = a[i]+a[i+1]+a[i+2];
+void process(char data[256], char out[256]) {
+#pragma HLS ARRAY_RESHAPE variable=data factor=2 dim=1 type=block
+#pragma HLS ARRAY_RESHAPE variable=out factor=2 dim=1 type=block
+#pragma HLS PIPELINE
+    for (int i = 0; i < 256; i++) {
+        out[i] = data[i] + 1;
     }
 }
+
 ```
-They look pretty similar but when you run the c synthesis of the second one we get the following warning:
+What this does:
 
-**WARNING: [HLS 200-885] The II Violation in module 'example2' (loop 'VITIS_LOOP_7_1'): Unable to schedule 'load' operation 32 bit ('a_load_1', example2.cpp:9) on array 'a' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'a'.**
+factor=2 groups 2 char elements (2×8 bits = 16 bits).
 
-But why is this?
+Now, the FPGA can read or write 16 bits per cycle, matching the bus width.
 
-## Limited accesses per cycle
-BRAM and URAM are limited to **2 accesses per cycle**. 
-```cpp
-result[i] = a[i]+a[i+1]+a[i+2];
-```
-Here we try to access the same memory three times in the same cycle which leads to vitis not being able to optimize the system properly.
+This effectively doubles your memory throughput without increasing resource usage.
 
-
-
-# The fix: Array Partitioning
-Array partitioning is a feature in Vitis HLS that splits an array into smaller pieces (like putting slices of it into separate drawers). Each part gets its own memory block, which means more access ports.
-
+### Different types of array reshape
 There are 3 main types of array partitioning in Vitis Hls. Let's take a look at possible solutions to last section's problem.
 
 ### Block
