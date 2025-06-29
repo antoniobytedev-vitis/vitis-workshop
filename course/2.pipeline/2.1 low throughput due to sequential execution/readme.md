@@ -80,3 +80,7 @@ Subsequent results appear every cycle.
 
 ### Total cycles: 101 (3+99-1) 
 ![Cycles with pipeline](../../resources/cycles%20with%20pipeline.png)
+
+Pipelining transforms a slow, sequential design into a high-performance, cycle-accurate hardware pipeline capable of processing new data every clock cycle while reusing hardware resources efficiently.
+
+This is the first and most essential optimization in Vitis HLS to achieve meaningful acceleration on FPGAs.
