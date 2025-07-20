@@ -81,10 +81,10 @@ void top_function(int[256] in, int[256] out)
 
 | Memory Type    | On-chip | Access Speed | Size                     | Accessed via  |
 | -------------- | ------- | ------------ | ------------------------ | ------------- |
-|Flip-flop|✅|Fastest|Very small(1 bit)|Scalar variables|
-| BRAM           | ✅       | Fast         | Small (KBs)              | Local arrays  |
-| URAM           | ✅       | Medium       | Larger (hundreds of KBs) | Local arrays  |
-| DDR (external) | ❌       | Slow         | Large (GBs)              | `m_axi` ports |
+|Flip-flop|yes|Fastest|Very small(1 bit)|Scalar variables|
+| BRAM           | yes       | Fast         | Small (KBs)              | Local arrays  |
+| URAM           | yes       | Medium       | Larger (hundreds of KBs) | Local arrays  |
+| DDR (external) | no      | Slow         | Large (GBs)              | `m_axi` ports |
 
 
 # Assignment

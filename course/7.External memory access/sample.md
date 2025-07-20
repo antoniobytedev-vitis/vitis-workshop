@@ -1,1 +1,0 @@
-In this section, you'll learn how Vitis HLS maps C/C++ function arguments to hardware interfaces like AXI, AXI Stream, and BRAM. We'll explore how to configure input/output ports and control logic so your hardware block can communicate effectively with a system or host processor.

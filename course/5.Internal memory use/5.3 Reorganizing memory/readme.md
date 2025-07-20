@@ -35,7 +35,7 @@ type: The reshaping style (cyclic, block, or complete).
 
 If type is omitted, cyclic is the default.
 
-🔧 Reshaping Styles
+Reshaping Styles
 Vitis HLS supports three reshaping styles:
 
 1. Cyclic Reshape (default)
@@ -103,7 +103,7 @@ Now, up to 4 chars (32 bits) can be accessed per cycle → 4× faster memory thr
 | Feature             | `ARRAY_RESHAPE`                | `ARRAY_PARTITION`                   |
 | ------------------- | ------------------------------ | ----------------------------------- |
 | Memory structure    | Groups elements in wider words | Splits elements into separate banks |
-| Resource usage      | ✅ Low (1 BRAM)                 | ❌ Higher (multiple BRAMs/registers) |
+| Resource usage      |  Low (1 BRAM)                 |  Higher (multiple BRAMs/registers) |
 | Access type         | Grouped (burst-style)          | Parallel (fully independent)        |
 | Best use case       | Bandwidth optimization         | Full parallel processing            |
 | Can combine with... | Pipelining, wide buses         | Loop unrolling                      |

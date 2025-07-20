@@ -1,102 +1,67 @@
-# Problems Accessing Memory – Data Bus Underutilization
-In FPGA designs using Vitis HLS, memory bandwidth is often a bottleneck. Modern FPGA systems frequently use wide memory buses (e.g., 16-bit, 32-bit, or 64-bit AXI buses) to transfer data efficiently. However, poor memory layout can lead to underutilization of these buses, reducing performance despite available bandwidth.
+# Problems in Pipelining – Underutilization of Hardware due to lack of memory ports
+In FPGA designs using Vitis HLS, on-chip BRAM typically provides only two ports, allowing two simultaneous reads or writes per cycle. However, when your design requires accessing more than two data elements per cycle, the BRAM’s limited port availability can become a bottleneck. Even if your computation could handle processing more data in parallel, the memory architecture limits the design’s ability to feed data fast enough, leaving your arithmetic units idle and underutilizing FPGA resources.
 
-## The Problem
-Consider an FPGA connected to memory with a 16-bit data bus, but your algorithm uses:
-```c
-char data[256]; // 8-bit elements
-```
-Without any optimization:
-
-Each read or write accesses only 8 bits of the 16-bit bus.
-
-50% of the bandwidth is wasted on every transfer.
-
-If your algorithm requires high throughput, this limitation can prevent the loop from achieving II=1 (full pipelining).
-
-### example 1
+## Example
 ```cpp
-void process(char data[256], char out[256]) {
-#pragma HLS PIPELINE
+void sum_quads(int a[256], int result[256]) {
     for (int i = 0; i < 256; i++) {
-        out[i] = data[i] + 1;
+        #pragma HLS UNROLL factor=4;
+        result[i] = a[i]*4;
     }
 }
-
 ```
-Each cycle, only 1 byte (8 bits) is transferred on a 16-bit bus.
+Each iteration requires reading four different elements from the array a to compute the sum. Since BRAM only allows two reads per cycle, Vitis HLS cannot fetch all four required elements in a single cycle. This forces the design to spread the reads across multiple cycles, causing the adder to wait for data and remain idle during some cycles, limiting the throughput of the loop. Even if the computation itself could complete in one cycle, the memory bandwidth limitation extends the effective initiation interval, underutilizing the potential of your FPGA.
 
-You require 256 cycles to process the entire array.
-
-The hardware is underutilized, and throughput is limited.
-
-## The Solution: Using ARRAY_RESHAPE
-By using #pragma HLS ARRAY_RESHAPE, you can reorganize the array layout to group multiple elements into a single wider memory word. This allows the hardware to utilize the full width of the bus in each transfer, improving throughput and reducing stalls.
+## The Solution
+To address this limitation, you can use array partitioning to split the array into multiple smaller memories, allowing parallel accesses to different memory banks within the same cycle. By partitioning the array cyclically with a factor of 4, each bank will store every fourth element, enabling simultaneous access to the four required elements in one cycle.
 
 ```cpp
-void process(char data[256], char out[256]) {
-#pragma HLS ARRAY_RESHAPE variable=data factor=2 dim=1 type=block
-#pragma HLS ARRAY_RESHAPE variable=out factor=2 dim=1 type=block
+void sum_quads_partitioned(int a[256], int result[64]) {
+#pragma HLS ARRAY_PARTITION variable=a cyclic factor=4
 #pragma HLS PIPELINE
-    for (int i = 0; i < 256; i++) {
-        out[i] = data[i] + 1;
-    }
-}
-
-```
-What this does:
-
-factor=2 groups 2 char elements (2×8 bits = 16 bits).
-
-Now, the FPGA can read or write 16 bits per cycle, matching the bus width.
-
-This effectively doubles your memory throughput without increasing resource usage.
-
-### Different types of array reshape
-There are 3 main types of array partitioning in Vitis Hls. Let's take a look at possible solutions to last section's problem.
-
-### Block
-This separates the memory in n adjacent blocks. 
-```cpp 
-void example2(int a[256],int result[64]) 
-{
- #pragma HLS ARRAY_PARTITION variable=a type=block factor=2
-    for(int i=0;i<64;i++)
-    {   
-        result[i] = a[i]+a[i+1]+a[i+2];
+    for (int i = 0; i < 64; i++) {
+        result[i] = a[4 * i] + a[4 * i + 1] + a[4 * i + 2] + a[4 * i + 3];
     }
 }
 ```
-This will result in storing a in two separate memories. One that stores a[0] to a [127] and another that stores a[128] to a[256]. However this will not fix our problem, as a[i], a[i+1] and a[i+2] are **still on the same memory**.
-### Complete
-This stores each separate element of the array into flip-flops. Making them independent from each other.
-```cpp 
-void example2(int a[256],int result[64]) 
-{
- #pragma HLS ARRAY_PARTITION variable=a type=complete
-    for(int i=0;i<64;i++)
-    {   
-        result[i] = a[i]+a[i+1]+a[i+2];
-    }
-}
-```
-Even though this fixes our problem, it also increases the resources needed inmensely, so doing a complete partitioning is not often recommended if throughput isn't your only priority.
 
-### Cyclic
-This separates the memory in n blocks but alternating their elements. For example:
-```cpp 
-void example2(int a[256],int result[64]) 
-{
- #pragma HLS ARRAY_PARTITION variable=a type=cyclic factor=2
-    for(int i=0;i<64;i++)
-    {   
-        result[i] = a[i]+a[i+1]+a[i+2];
-    }
-}
-```
-Will store a[0],a[2],a[4]... in one memory and a[1],a[3],a[5] in the other. As a[i] and a[i+1] are now in different memories we can access every element we need while still being under 3 accesses to each memory per cycle.
+By partitioning a cyclically with a factor of 4, Vitis HLS splits the original array into 4 separate memories, each storing elements like a[0], a[4], a[8], ..., a[1], a[5], a[9], ..., and so on. Since each of these new memories has its own ports, the design can now read all four required elements simultaneously in a single cycle.
 
-Cyclic partitioning tends to be the most efficient way to increase throughput as it doesn't increment the area as much as a complete partitioning.
+Combined with pipelining, this ensures:
+
+All four required data reads occur in the same cycle.
+
+The adder receives all its inputs without delay.
+
+A new sum is produced every cycle, achieving II = 1.
+
+The FPGA’s BRAM ports and arithmetic units are fully utilized, maximizing throughput.
+
+## Why Array Partitioning Matters
+Without array partitioning, memory access limitations often become the bottleneck in FPGA designs, leaving your computational resources underutilized. Array partitioning allows you to align your memory architecture with the parallelism of your computation, ensuring that data can be fed to the logic at the rate it can process. This enables you to achieve the performance gains you expect from pipelining and unrolling while making effective use of the FPGA’s resources.
+
+# Other types of array partitioning
+
+Depending on your necessities you may need to use one of the following types:
+
+## Block Partitioning
+Block partitioning divides the array into contiguous blocks stored in separate memory banks.
+
+```cpp
+#pragma HLS ARRAY_PARTITION variable=a block factor=4
+```
+Using block partitioning with a factor of 4 will split a into 4 blocks: the first storing a[0] to a[63], the second a[64] to a[127], and so on. This method is useful when your computation accesses data in a way that aligns with the block structure, such as when processing large, independent data chunks. However, for operations requiring simultaneous access to adjacent elements, block partitioning may not fully resolve access bottlenecks because adjacent data may still reside in the same block.
+
+## Complete Partitioning
+Complete partitioning stores each element of the array in a separate register or distributed RAM.
+
+```cpp
+#pragma HLS ARRAY_PARTITION variable=a complete
+```
+This allows full parallel access to every element, eliminating all memory access bottlenecks and achieving maximum throughput. However, it uses significant FPGA resources, as it requires as many registers or distributed RAM elements as the size of the array. This method should be used only when maximum performance is required and the FPGA has sufficient resources to support full parallelism.
+
+
+
 
 # Assignment
 We want to choose the most efficient memory partition for our FPGA. Partition the variable a using each of the methods explained here with a factor of 2.

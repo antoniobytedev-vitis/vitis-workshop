@@ -1,7 +1,6 @@
-# Problems in Loops – Low Throughput Due to Sequential Execution
+# Problems in pipelining – Low Throughput Due to Sequential Execution
 In FPGA designs using Vitis HLS, loop throughput is often a bottleneck. Loops in C/C++ execute sequentially, completing each iteration before starting the next. On FPGA hardware, this behavior wastes cycles and underutilizes resources, especially when your design needs to process large arrays or continuous data streams at high speed.
 
-## The Problem
 Consider a simple addition loop:
 ```cpp
 void add_arrays(int a[100], int b[100], int c[100]) {
@@ -39,7 +38,7 @@ If we run the c synthesis in vitis we get the following results:
 By using:
 
 ```cpp
-#pragma HLS PIPELINE
+#pragma HLS PIPELINE II=1
 ```
 you instruct Vitis HLS to pipeline the loop, allowing:
 
@@ -58,7 +57,7 @@ Note that even if you do not use #pragma HLS PIPELINE, vitis may add pipeline an
 void add_arrays_pipelined(int a[100], int b[100], int [100]) {
 
     for (int i = 0; i < 100; i++) {
-        #pragma HLS PIPELINE
+        #pragma HLS PIPELINE II=1
         c[i] = a[i] + b[i];
     }
 }
