@@ -1,1 +1,3 @@
 No empezada
+
+HABLAR DE TASK Y CHANNELS

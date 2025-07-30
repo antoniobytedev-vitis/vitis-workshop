@@ -2,7 +2,7 @@
 When dealing with loops in vitis HLS we may come across a false dependency. A false dependency occurs when vitis believes a location can be accessed twice on the same cycle but in reality they are in different branches of the condicional. For example, let's run this code from vitis documentation.
 
 ```cpp
-void histogram(int in[INPUT SIZE], int hist[VALUE SIZE]) f
+void histogram(int in[INPUT SIZE], int hist[VALUE SIZE]) {
  int acc = 0;
  int i, val;
  int old = in[0];
@@ -24,6 +24,7 @@ void histogram(int in[INPUT SIZE], int hist[VALUE SIZE]) f
  }
 
  hist[old] = acc;
+}
 ```
 In this example we get a II=2 pipeline as vitis believes the same address is being accessed in hist[val] and hist[old], but we know this is impossible due to the if statement.
 
@@ -74,4 +75,5 @@ dependent=false
  }
 
  hist[old] = acc;
+}
 ```

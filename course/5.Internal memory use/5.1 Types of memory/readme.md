@@ -76,7 +76,6 @@ void top_function(int[256] in, int[256] out)
 }
 ```
 
-## Conclusion
 
 
 | Memory Type    | On-chip | Access Speed | Size                     | Accessed via  |

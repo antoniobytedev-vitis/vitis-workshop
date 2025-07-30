@@ -5,6 +5,7 @@ In FPGA designs using Vitis HLS, on-chip BRAM typically provides only two ports,
 ```cpp
 void sum_quads(int a[256], int result[256]) {
     for (int i = 0; i < 256; i++) {
+        #pragma HLS PIPELINE II=1
         #pragma HLS UNROLL factor=4;
         result[i] = a[i]*4;
     }
@@ -18,8 +19,9 @@ To address this limitation, you can use array partitioning to split the array in
 ```cpp
 void sum_quads_partitioned(int a[256], int result[64]) {
 #pragma HLS ARRAY_PARTITION variable=a cyclic factor=4
-#pragma HLS PIPELINE
     for (int i = 0; i < 64; i++) {
+        #pragma HLS PIPELINE II=1
+        #pragma HLS UNROLL factor=4
         result[i] = a[4 * i] + a[4 * i + 1] + a[4 * i + 2] + a[4 * i + 3];
     }
 }
