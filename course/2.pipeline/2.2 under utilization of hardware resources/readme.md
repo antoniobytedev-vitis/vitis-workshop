@@ -1,50 +1,38 @@
-# Problems in pipelining – Underutilization of Hardware When Accessing 2-Port BRAM
-In FPGA designs using Vitis HLS, on-chip BRAM (block RAM) typically offers 2 ports, allowing two simultaneous reads or writes per cycle. However, if your loop accesses this memory sequentially, it underutilizes the available ports, leaving one or both idle for many cycles, limiting potential throughput and wasting FPGA resources.
+# Problems in Pipelining – Minimum II Constrained by Available Memory Ports
+In FPGA designs using Vitis HLS, on-chip BRAM typically offers two ports, allowing two simultaneous memory accesses—either reads, writes, or both—in a single clock cycle. When loops in your design require more memory accesses per iteration than the number of available ports, this imposes a hard limit on how frequently new iterations can begin. Specifically, it increases the minimum achievable initiation interval (II), meaning that even if the computational logic could support processing data every cycle, the memory subsystem becomes a bottleneck.
+
+## Example
+Consider the following loop, which processes pairs of elements from an array and stores their sum:
 
 ```cpp
-void sum_pairs(int a[256], int result[128]) {
-    for (int i = 0; i < 128; i++) {
-        result[i] = a[2 * i] + a[2 * i + 1];
-    }
-}
-
-```
-What happens:
-
-Each iteration reads a[2 * i] and a[2 * i + 1] and sums them.
-
-Without pipelining:
-
-* The design reads two values per iteration sequentially.
-
-* Only one iteration executes at a time.
-
-* If the adder takes 1 cycle, and reads are scheduled conservatively:
-
-* Each iteration takes 2 cycles.
-
-* The second BRAM port may remain idle depending on how the reads are scheduled.
-
-## The solution
-you instruct Vitis HLS to pipeline the loop, allowing:
-
-* Multiple iterations to overlap.
-
-* The BRAM to issue new read commands every cycle, maintaining both ports active.
-
-* The adder to compute sums every cycle without idle time.
-
-```cpp
-void sum_pairs_pipelined(int a[256], int result[128]) {
-#pragma HLS PIPELINE
-    for (int i = 0; i < 128; i++) {
-        result[i] = a[2 * i] + a[2 * i + 1];
+void accumulate_shifted(int a[256], int result[256]) {
+    int temp = 0;
+    for (int i = 0; i < 256; i++) {
+        temp = a[i] + (temp >> 1);
+        result[i] = temp;
     }
 }
 ```
-* The two BRAM ports remain active every cycle.
+Each iteration requires two reads from the array a. Because BRAM provides two read ports, it is theoretically possible to execute one iteration per cycle. However, if the loop is not pipelined, each iteration executes sequentially, which makes the timing entirely dependent on memory access latency, and throughput is reduced.
 
-* The adder is utilized every cycle.
+## The Solution
+To ensure that the loop takes full advantage of the memory’s capabilities, pipelining can be applied. With pipelining, multiple loop iterations overlap, and Vitis HLS will attempt to initiate new iterations every clock cycle. Whether this is successful depends on resource constraints like available memory ports.
 
-* Results are produced every cycle, achieving II = 1
+```cpp
+void accumulate_shifted(int a[256], int result[256]) {
+    int temp = 0;
+    for (int i = 0; i < 256; i++) {
+        #pragma HLS PIPELINE II=2
+        temp = a[i] + (temp >> 1);
+        result[i] = temp;
+    }
+}
+```
+
+## Why Memory Port Count Affects II
+The number of memory ports available directly impacts how quickly a loop can be pipelined. If your loop requires more memory accesses than can be served in a single cycle, Vitis HLS must delay the start of the next iteration, increasing the II. Understanding this limitation is essential when designing for high throughput.
+
+
+
+
 

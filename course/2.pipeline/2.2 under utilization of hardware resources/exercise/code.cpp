@@ -1,6 +1,8 @@
-#define N 1024
-void offset(float in[N], float out[N]) {
-    for (int i = 0; i < N; i++) {
-        out[i] = in[i] + 10.0f;
+void multiple_memory_access(int a[256], int result[128]) {
+
+    for (int i = 0; i < 128; i++) {
+        #pragma HLS PIPELINE off
+        result[i] = a[2 * i] + a[2 * i + 1] + a[i];
+
     }
 }
