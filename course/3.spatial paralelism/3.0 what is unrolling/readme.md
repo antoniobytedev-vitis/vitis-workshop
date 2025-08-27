@@ -46,10 +46,9 @@ While unrolling improves speed, it also increases the use of hardware resources.
 ## How to Use Unrolling in Vitis
 To unroll a loop in Vitis HLS, place the following directive inside your loop:
 
-cpp
-Copiar
-Editar
+```cpp
 #pragma HLS UNROLL factor=4
+```
 This will unroll the loop with a factor of 4, executing 4 iterations in parallel per clock cycle. You can adjust the factor to control the trade-off between speed and hardware usage depending on your design’s constraints.
 
 If you want to unroll the loop fully, allowing all iterations to execute in parallel, use:

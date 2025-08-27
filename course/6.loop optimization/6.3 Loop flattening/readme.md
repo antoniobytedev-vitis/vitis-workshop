@@ -23,9 +23,10 @@ To enable this, you can use the #pragma HLS LOOP_FLATTEN directive:
 
 ```cpp
 void add_matrices_flatten(int a[64][64], int b[64][64], int c[64][64]) {
-#pragma HLS LOOP_FLATTEN
+
     for (int i = 0; i < 64; i++) {
         for (int j = 0; j < 64; j++) {
+    #pragma HLS LOOP_FLATTEN
 #pragma HLS PIPELINE II=1
             c[i][j] = a[i][j] + b[i][j];
         }
@@ -34,6 +35,14 @@ void add_matrices_flatten(int a[64][64], int b[64][64], int c[64][64]) {
 ```
 
 By flattening the loops, Vitis HLS merges them into a single loop with 64 x 64 = 4096 iterations, eliminating the transition cycles between the outer and inner loops. Combined with pipelining, this allows one addition to execute per cycle, achieving II = 1 without additional control overhead. Your design now uses the FPGA’s adder resources efficiently, continuously processing data each cycle without stalls, and reducing total execution latency.
+
+```
+Note 1: By default vitis will try to flatten perfect loops unless the pragma hls LOOP_FLATTEN off is used
+```
+
+```
+Note 2: If pipeline is used in the outside loop or (or if it isn't turned off explicitly), vitis will unroll the inner one, thus preventing loop flatten.
+```
 
 ## Why Loop Flattening Matters
 Without loop flattening, designs with nested loops will suffer from unnecessary cycles during loop transitions, which add up in large loops and reduce effective throughput. Flattening loops aligns with the FPGA’s capability to process data streams continuously, ensuring that the hardware resources remain active and efficient across the entire computation.

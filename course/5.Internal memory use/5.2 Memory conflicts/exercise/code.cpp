@@ -1,6 +1,11 @@
-#define N 1024
-void offset(float in[N], float out[N]) {
+#define N 256
+
+int dot_product(int a[N], int b[N]) {
+    int sum = 0;
     for (int i = 0; i < N; i++) {
-        out[i] = in[i] + 10.0f;
+        #pragma HLS PIPELINE II=1
+        #pragma HLS UNROLL factor=4
+        sum += a[i] * b[i];
     }
+    return sum;
 }

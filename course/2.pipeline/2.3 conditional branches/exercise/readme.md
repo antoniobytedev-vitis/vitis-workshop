@@ -1,5 +1,5 @@
 # TASK
-Choose the minimum II for the pipeline pragma so that there's no II violation due to lack of memory ports. Synthesize the code both with the selected II and without pipeline and compare the results.
+Synthesize the code 3 times, one without pipeline, one using only pipeline and one using pipeline and the pragma hls dependency. Explain why we get a violation using pipeline only and show where it happens.
 
 ## Finished table
 | Metric                        | **Without Pipelining** | **With `#pragma HLS PIPELINE`** | **Pipelined and Fixed Dependency** |

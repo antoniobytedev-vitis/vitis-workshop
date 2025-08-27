@@ -1,12 +1,12 @@
 
-
+# SOLUTION
 
 ```cpp
-#define N 1024
-void offset(float in[N], float out[N]) {
-    for (int i = 0; i < N; i++) {
-        #pragma HLS PIPELINE II=1
-        out[i] = in[i] + 10.0f;
-    }
+void top_function(int[256] vitis)
+{
+    #pragma HLS INTERFACE m_axi port=vitis
+    int is = 0;
+    int[1024] fun;
 }
 ```
+In this tutorial we won't put much focus on external memory but it's crucial to identify all memory types when designing an fpga.

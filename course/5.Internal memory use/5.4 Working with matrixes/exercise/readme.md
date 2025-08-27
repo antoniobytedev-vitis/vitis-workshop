@@ -1,9 +1,8 @@
 # Task
 
-
 ## Finished table
-| Metric                        | **Without Merging** | **With Merging** 
+| Metric                        | **Without Partitioning** | **With Complete partitioning** 
 | ----------------------------- | ---------------------- | ------------------------------- | 
-| **Total Latency (cycles)**    |                        |                                 |                                    |
+| **Total Latency (cycles)**    |                      |                                 |                                    |
 | **LUTs Used**                 |                        |                                 |                                    |
 | **FFs Used**                  |                        |                                 |                                    |

@@ -61,15 +61,3 @@ Complete partitioning stores each element of the array in a separate register or
 #pragma HLS ARRAY_PARTITION variable=a complete
 ```
 This allows full parallel access to every element, eliminating all memory access bottlenecks and achieving maximum throughput. However, it uses significant FPGA resources, as it requires as many registers or distributed RAM elements as the size of the array. This method should be used only when maximum performance is required and the FPGA has sufficient resources to support full parallelism.
-
-
-
-
-# Assignment
-We want to choose the most efficient memory partition for our FPGA. Partition the variable a using each of the methods explained here with a factor of 2.
-
-* Run synthesis for each variant.
-
-* Compare initiation interval (II) and resource usage in the report.
-
-* Observe how ARRAY_PARTITION improves throughput

@@ -1,6 +1,6 @@
-#define N 1024
-void offset(float in[N], float out[N]) {
-    for (int i = 0; i < N; i++) {
-        out[i] = in[i] + 10.0f;
-    }
+void top_function(int[256] ...)
+{
+    #pragma HLS INTERFACE m_axi port=...
+    int ... = 0;
+    int[1024] ...;
 }

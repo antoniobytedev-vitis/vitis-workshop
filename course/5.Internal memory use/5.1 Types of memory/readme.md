@@ -86,5 +86,3 @@ void top_function(int[256] in, int[256] out)
 | DDR (external) | no      | Slow         | Large (GBs)              | `m_axi` ports |
 
 
-# Assignment
-We are creating an fpga for a university project. We need to use an external memory called vitis, a scalar called is and a local memory called fun. Replace the code in code.cpp to match each memory with its type.

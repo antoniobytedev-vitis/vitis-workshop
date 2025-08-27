@@ -53,7 +53,7 @@ Complete Reshape packs all elements of the array into a single memory word, allo
 #pragma HLS ARRAY_RESHAPE variable=a type=complete
 ```
 ## Reshape vs. Partition
-While array reshaping packs multiple elements into wider words to maximize memory bandwidth on a single BRAM, array partitioning splits arrays into separate banks or registers to allow fully parallel independent accesses, supporting high-throughput parallel computation. Reshaping is ideal for bandwidth optimization in pipelined designs, while partitioning is best for maximizing parallel compute throughput when unrolling loops.
+While array reshaping packs multiple elements into wider words to maximize memory bandwidth on a single BRAM and save resources, array partitioning splits arrays into separate banks or registers to allow fully parallel independent accesses, supporting high-throughput parallel computation. Partitioning is better when using pipeline and reshape when focusing on unrolling.
 
 
 

@@ -6,12 +6,11 @@ Consider the following code:
 ### Example 1
 
 First, let's take a look at the code with no optimizations.
-We need to add unroll off and pipeline off as vitis tries to pipeline automatically.
+We need to add pipeline off as vitis tries to pipeline automatically.
 ```cpp
 void datapath1(int a[256], int c[256])
 { 
     for (int i = 0; i < 256; i++) {
-       #pragma HLS UNROLL off
        #pragma HLS PIPELINE off
         c[i]= a[i]*4;
     }
@@ -27,7 +26,6 @@ Now let's take a look at the same code but with pipeline inside the loop. This m
 void datapath2(int a[256], int c[256])
 { 
     for (int i = 0; i < 256; i++) {
-       #pragma HLS UNROLL off
        #pragma HLS PIPELINE II=1
         c[i]= a[i]*4;
     }
