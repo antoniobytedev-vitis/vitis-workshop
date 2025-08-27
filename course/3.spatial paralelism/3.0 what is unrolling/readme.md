@@ -58,6 +58,10 @@ If you want to unroll the loop fully, allowing all iterations to execute in para
 ```
 This instructs Vitis HLS to replicate the loop body for all iterations and complete the entire loop in a single cycle, provided your design has sufficient resources to support this level of parallelism.
 
+```
+Note: To unroll a loop completely it can't have a variable bound.
+```
+
 Unrolling is a powerful optimization tool that helps you tune your design for maximum throughput, but it should be used carefully to ensure that your FPGA resources and memory bandwidth can support the required parallel operations. By strategically applying partial or complete unrolling, you can significantly improve your design's performance while balancing resource utilization to fit your specific application needs.
 
 

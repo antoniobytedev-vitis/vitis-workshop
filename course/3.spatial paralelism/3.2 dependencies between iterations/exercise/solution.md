@@ -1,6 +1,5 @@
 
 
-
 ```cpp
 void cumulative_sum(double in[256], double &sum) {
 double partial_sums[16] = {0};

@@ -57,6 +57,5 @@ void dot_product_complete(int a[N], int b[N], int &result) {
 | **LUTs used**             | 320                     |        325             |           685          |    2495          |      |      |      |      |      |
 | **FFs used**              | 283                 |    501                 |     544                |     565         |      |      |      |      |      |
 | **DSPs used**             |  6                   |     12                |                6     |        12      |      |      |      |      |      |
-| **BRAMs used**            |     0                  |    0                 |           0          |       0       |      |      |      |      |
 
 As you can see in the table because we only unrolled by a factor of 4, partitioning by a cyclic factor of 4 is the best option for performance in regards to resources used. Using block partitioning doesn't help us at all, since the memory isn't partitioned in a way the hardware can take advantage from it. Complete partitioning, on the other hand, let's us get the same number of cycles as with cyclic partitioning but with exponentially more resources.

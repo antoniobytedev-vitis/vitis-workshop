@@ -1,4 +1,4 @@
-# Problems in Pipelining – Underutilization of Hardware due to lack of memory ports
+# Problems in Memory – Underutilization of Hardware due to lack of memory ports
 In FPGA designs using Vitis HLS, on-chip BRAM typically provides only two ports, allowing two simultaneous reads or writes per cycle. However, when your design requires accessing more than two data elements per cycle, the BRAM’s limited port availability can become a bottleneck. Even if your computation could handle processing more data in parallel, the memory architecture limits the design’s ability to feed data fast enough, leaving your arithmetic units idle and underutilizing FPGA resources.
 
 ## Example

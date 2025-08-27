@@ -2,4 +2,4 @@ Memory is a critical part of FPGA design. This section covers how to efficiently
 
 
 
-Todo terminado hasta 5.3 faltan matrices
+Todo terminado!

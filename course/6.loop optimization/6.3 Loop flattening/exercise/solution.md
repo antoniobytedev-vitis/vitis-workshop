@@ -9,12 +9,12 @@ int row_sum=0;
        inner: for (int j = 0; j < 64; j++) {
             row_sum += out[i][j]; 
             out[i][j] = in[i][j] + bias + row_sum;
-            
         }
     }
 }
 
 ```
+If the loop has been flattened correctly, the name of the resulting loop should be outer_inner.
 
 ## Finished table
 | Metric                        | **Without Flattening** | **With Flattening** 
@@ -22,3 +22,5 @@ int row_sum=0;
 | **Total Latency (cycles)**    |           4481           |              4100                   |                                    |
 | **LUTs Used**                 |        345               |           359                      |                                    |
 | **FFs Used**                  |   214                |            320                     |                                    |
+
+This solution achieves better performance by removing the overhead between inner and outer loops.
