@@ -1,5 +1,4 @@
-
-
+# Solution
 ```cpp
 void cumulative_sum(double in[256], double &sum) {
 double partial_sums[16] = {0};
@@ -17,3 +16,5 @@ double partial_sums[16] = {0};
 
 }
 ```
+
+There are many ways to approach this problem and this is just and example. However, the expected result is for the optimized version to have much more throughput and an increase in area(albeit not that pronounced).

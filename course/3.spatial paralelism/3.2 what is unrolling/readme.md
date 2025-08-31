@@ -30,8 +30,8 @@ Unrolling can also be applied fully, allowing the loop to execute all iterations
 
 ```cpp
 void multiply_array_full_unroll(int a[256], int c[256]) {
-#pragma HLS UNROLL
     for (int i = 0; i < 256; i++) {
+        #pragma HLS UNROLL
         c[i] = a[i] * 4;
     }
 }

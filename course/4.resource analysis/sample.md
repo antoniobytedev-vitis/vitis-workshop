@@ -1,1 +1,0 @@
-Here, we introduce the basic hardware resources your HLS design will consume — LUTs, flip-flops, BRAMs, and DSPs. You'll learn how to interpret a basic synthesis report and recognize how different coding styles impact resource usage. Full analysis comes later, but this will give you a foundation to make informed design choices from the beginning.

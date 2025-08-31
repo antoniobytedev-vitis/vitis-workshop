@@ -33,7 +33,10 @@ void top_sequential(int in[256], int out[256]) {
 ## Finished table
 | Metric                        | **Without DATAFLOW** | **With DATAFLOW** 
 | ----------------------------- | ---------------------- | ------------------------------- | 
-| **Total Latency (cycles)**    |                      |                                 |                                    |
-| **LUTs Used**                 |                        |                                 |                                    |
-| **FFs Used**                  |                        |                                 |                                    |
-| **BRAMs Used**                  |                        |                                 |                                    |
+| **Total Latency (cycles)**    |             397         |      394                           |                                    |
+| **LUTs Used**                 |   437                     |  282                               |                                    |
+| **FFs Used**                  |       353                 |     347                            |                                    |
+| **BRAMs Used**                  |           4             |      8                           |                                    |
+| **DSPUsed**                  |       6                 |      6                      |                                    |
+
+Despite not increasing throughput by much(only by 3 cycles that correspond to the different function calls) we can see that excluding ram area is reduced. Specially regarding LUTs.
