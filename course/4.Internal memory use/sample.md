@@ -1,0 +1,5 @@
+Memory is a critical part of FPGA design. This section covers how to efficiently store and access data using local arrays, block RAM, and partitioning techniques. You'll learn how access patterns and array configurations directly affect performance and area.
+
+
+
+Todo terminado!
