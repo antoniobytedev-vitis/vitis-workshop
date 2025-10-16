@@ -8,14 +8,14 @@ When a loop attempts to access multiple elements of a 2D array in parallel, the 
 
 Consider a matrix-vector multiplication, where each row of a 64×64 matrix is multiplied by a vector of 64 elements:
 ```cpp
-void matvec_mult(int A[64][64], int x[64], int y[64]) {
-    for (int i = 0; i < 64; i++) {
-        int sum = 0;
-        for (int j = 0; j < 64; j++) {
-#pragma HLS PIPELINE II=1
-            sum += A[i][j] * x[j];
+#define N 256
+
+void matrix_add(int A[N][N], int B[N][N], int C[N][N]) {
+    for (int i = 0; i < N; i++) {
+        #pragma HLS PIPELINE II=1
+        for (int j = 0; j < N; j++) {
+            C[i][j] = A[i][j] + B[i][j];
         }
-        y[i] = sum;
     }
 }
 ```
@@ -37,24 +37,24 @@ By using dim=1 we can partition the first dimension(rows), whereas by using dim=
 To enable this, apply the #pragma HLS ARRAY_PARTITION directive. For example, we can partition the second dimension of A completely:
 
 ```cpp
-void matvec_mult_partition(int A[64][64], int x[64], int y[64]) {
-#pragma HLS ARRAY_PARTITION variable=A dim=2 complete
-    for (int i = 0; i < 64; i++) {
-        int sum = 0;
-        for (int j = 0; j < 64; j++) {
-#pragma HLS PIPELINE II=1
-            sum += A[i][j] * x[j];
+#define N 256
+
+void matrix_add(int A[N][N], int B[N][N], int C[N][N]) {
+    #pragma HLS ARRAY_PARTITION HLS variable=A dim=2 type=complete
+    for (int i = 0; i < N; i++) {
+        #pragma HLS PIPELINE II=1
+        for (int j = 0; j < N; j++) {
+            C[i][j] = A[i][j] + B[i][j];
         }
-        y[i] = sum;
     }
 }
 
 ```
 ## What changes?
 
-Partitioning along dim=2 (columns) breaks each row of A into 64 separate registers.
+Partitioning along dim=2 (columns) breaks each row of A into 256 separate registers.
 
-This allows all 64 elements in a row to be accessed in parallel.
+This allows all 256 elements in a row to be accessed in parallel.
 
 Now the loop can be fully pipelined with II = 1, ensuring maximum throughput.
 

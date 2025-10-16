@@ -1,12 +1,26 @@
-
-# SOLUTION
-
+# Solution
 ```cpp
-void top_function(int[256] vitis)
+void datapath1(int A[512])
 {
-    #pragma HLS INTERFACE m_axi port=vitis
-    int is = 0;
-    int[1024] fun;
+    int B[512];
+    int C[512];
 }
 ```
-In this tutorial we won't put much focus on external memory but it's crucial to identify all memory types when designing an fpga.
+Despite this being the correct way to define them Vitis will realize that the arrays B and C aren't being used and will not assign any brams to them. To make vitis assign bram it's necessary to assign values to them and use them in a different cycle than in the one they are assigned.
+```cpp
+void top_function(int A[512],int &output)
+{
+    int B[512];
+    int C[512];
+    for(int i=0;i<512;i++)
+    {
+        B[i]=A[i];
+        C[i]=A[i];
+    }
+    for(int i=0;i<512;i++)
+    {
+        output+=B[i]+C[511-i];
+    }
+}
+```
+It is also mandatory to have an output variable or vitis won't use any resource for the FPGA.

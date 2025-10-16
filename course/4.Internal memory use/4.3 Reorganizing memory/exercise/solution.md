@@ -25,6 +25,8 @@ void combine_arrays_reshaped(short a[SIZE], short b[SIZE], short c[SIZE], short 
 | **Total Latency (cycles)**    |                   256     |        35                         |                                    |
 | **LUTs Used**                 |                125        |                         496        |                                    |
 | **FFs Used**                  |   78                     |                 397                |                                    |
+|**BRAMs Used**|0|0|
+|**DSP Used**|0|0|
 
 To get the maximum throughput in regards to area we need to unroll by a factor of 8. This is because cyclic reshaping allows us 2 accesses to each element per cycle.
 

@@ -1,7 +1,7 @@
 # TASK
-Synthesize the code 4 times:
+Synthesize the code 4 times, applying the following changes to bufferA, bufferB and C:
 
-One without array partitioning.
+One without array partitioning
 
 One using cyclic partitioning with factor 4.
 
@@ -18,5 +18,6 @@ Compare the achievable Initiation Interval (II), total latency, and resource usa
 | **LUTs used**             |                     |                   |                     |              |      |      |      |      |      |
 | **FFs used**              |                 |                     |                   |              |      |      |      |      |      |
 | **DSPs used**             |                    |                     |                  |             |      |      |      |      |      |
+| **BRAMs used**             |                    |                     |                  |             |      |      |      |      |      |
 
 
