@@ -7,4 +7,4 @@ Las siguientes carpetas contienen
 Se copian los datos en un buffer pq si no vitis al ser memoria externa no le asigna ninguna bram.
 * 4.3 Se basa en array reshape y en un ejercicio sobre este
 * 4.4 Explica las dimensiones en array partition para trabajar con matrices
-* advanced esta seccion tiene ejercicios de varias partes del tema. He pensado en crear una carpeta aparte para que cuando otra gente trabaje en el repositorio los pueda añadir ahí directamente.
+* advanced esta seccion tiene ejercicios de varias partes del tema. He pensado en crear una carpeta aparte para que cuando otra gente trabaje en el repositorio los pueda añadir ahí directamente, ya que hay ejercicios que no tienen por qué encajar solo en una parte.
