@@ -2,11 +2,13 @@
 When dealing with loops in vitis HLS we may come across a false dependency. A false dependency occurs when vitis believes a location can be accessed twice on the same cycle but in reality they are in different branches of the condicional. For example, let's run this code from vitis documentation.
 
 ```cpp
-void histogram(int in[INPUT SIZE], int hist[VALUE SIZE]) {
+#define INPUT_SIZE 256
+#define VALUE_SIZE 256
+void histogram(int in[INPUT_SIZE], int hist[VALUE_SIZE]) {
  int acc = 0;
  int i, val;
  int old = in[0];
- false_dependency_loop: for(i = 0; i < INPUT SIZE; i++)
+ false_dependency_loop: for(i = 0; i < INPUT_SIZE; i++)
  {
  #pragma HLS PIPELINE II=1
  val = in[i];
@@ -55,9 +57,8 @@ void histogram(int in[INPUT SIZE], int hist[VALUE SIZE]) {
  int acc = 0;
  int i, val;
  int old = in[0];
- #pragma HLS DEPENDENCE variable=hist intra RAW false
-dependent=false
- for(i = 0; i < INPUT SIZE; i++)
+ #pragma HLS DEPENDENCE variable=hist intra RAW dependent=false
+false_dependency_loop: for(i = 0; i < INPUT SIZE; i++)
  {
  #pragma HLS PIPELINE II=1
  val = in[i];
@@ -77,3 +78,7 @@ dependent=false
  hist[old] = acc;
 }
 ```
+![False dependency example](../../resources/falsedepenfixed.png)
+
+
+As we can see by fixing the false dependency problem we can achieve double the throughput, so it's important to know which dependencies are false and which can be removed.
