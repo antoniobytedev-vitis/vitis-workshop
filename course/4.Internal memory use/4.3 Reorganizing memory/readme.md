@@ -29,6 +29,15 @@ void increment_array_reshaped(char a[256], char out[256]) {
     }
 }
 ```
+
+|        | no reshaping | cyclic(factor=8) |
+| ------ | ------------ | ---------------- |
+| Cycles |   131        | 34              |
+| LUT    |    265       | 176               |
+| FF     |  96         | 18              |
+| BRAMs  | 0            | 0                |
+| DSP    | 0            | 0                |
+
 By doing this the throughput increases significantly, without having to increase the area much.
 
 ## Why Memory Reshaping Matters

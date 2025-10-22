@@ -50,8 +50,7 @@ void matrix_add(int A[N][N], int B[N][N], int C[N][N]) {
 }
 
 ```
-<<<<<<< Updated upstream
-=======
+
 
 Doing the synthesis to both codes bears these results:
 
@@ -62,7 +61,6 @@ Doing the synthesis to both codes bears these results:
 | FF     |      2342         | 8222           |
 | BRAMs  |         0         | 0              |
 | DSP    |         0         | 0              |
->>>>>>> Stashed changes
 ## What changes?
 
 Partitioning along dim=2 (columns) breaks each row of A into 256 separate registers.
