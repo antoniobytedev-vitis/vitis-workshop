@@ -17,15 +17,25 @@ Each iteration requires reading four different elements from the array a to comp
 To address this limitation, you can use array partitioning to split the array into multiple smaller memories, allowing parallel accesses to different memory banks within the same cycle. By partitioning the array cyclically with a factor of 4, each bank will store every fourth element, enabling simultaneous access to the four required elements in one cycle.
 
 ```cpp
-void sum_quads_partitioned(int a[256], int result[64]) {
-#pragma HLS ARRAY_PARTITION variable=a cyclic factor=4
-    for (int i = 0; i < 64; i++) {
+void sum_quads_partitioned(int a[256], int result[256]) {
+#pragma HLS ARRAY_PARTITION variable=a type=cyclic factor=4
+#pragma HLS ARRAY_PARTITION variable=result type=cyclic factor=4
+    for (int i = 0; i < 256; i++) {
         #pragma HLS PIPELINE II=1
         #pragma HLS UNROLL factor=4
-        result[i] = a[4 * i] + a[4 * i + 1] + a[4 * i + 2] + a[4 * i + 3];
+        result[i] = a[i]*4
     }
-}
+}l
 ```
+Doing the c synthesis will show these results:
+
+|        | no partition | cyclic(factor=4) |
+| ------ | ------------ | ---------------- |
+| Cycles | 131          | 66               |
+| LUT    | 156          | 56               |
+| FF     | 114          | 19               |
+| BRAMs  | 0            | 0                |
+| DSP    | 0            | 0                |
 
 By partitioning a cyclically with a factor of 4, Vitis HLS splits the original array into 4 separate memories, each storing elements like a[0], a[4], a[8], ..., a[1], a[5], a[9], ..., and so on. Since each of these new memories has its own ports, the design can now read all four required elements simultaneously in a single cycle.
 

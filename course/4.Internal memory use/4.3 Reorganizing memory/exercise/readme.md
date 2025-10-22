@@ -6,3 +6,5 @@ Synthesize the code twice. The first time without reshaping or unrolling and the
 | **Total Latency (cycles)**    |                        |                                 |                                    |
 | **LUTs Used**                 |                        |                                 |                                    |
 | **FFs Used**                  |                        |                                 |                                    |
+|**BRAMs Used**|?|?|
+|**DSP Used**|?|?|

@@ -4,7 +4,11 @@
 ```cpp
 #define ROWS 8
 #define COLS 64
+<<<<<<< Updated upstream
 void datapath1(int A[ROWS][COLS], int B[ROWS][COLS]) {
+=======
+void top_function(int A[ROWS][COLS], int B[ROWS][COLS]) {
+>>>>>>> Stashed changes
 #pragma HLS ARRAY_RESHAPE variable=A type=cyclic factor=8 dim=2
 #pragma HLS ARRAY_RESHAPE variable=B type=cyclic factor=8 dim=2
 

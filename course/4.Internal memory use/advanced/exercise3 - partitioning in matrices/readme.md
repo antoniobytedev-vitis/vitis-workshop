@@ -8,3 +8,7 @@ Using array reshape do the minimum partition possible to get the most throughput
 | **LUTs Used**                 |                       |                                 |                                    |
 | **FFs Used**                  |                        |                                 |                                    |
  **BRAMs used**                  |                        |                                 | 
+<<<<<<< Updated upstream
+=======
+ |**DSP used**||||
+>>>>>>> Stashed changes
