@@ -36,6 +36,15 @@ double partial_sums[16] = {0};
 
 }
 ```
+| metric | Without refactor | Refactored |
+| ------ | ---------------- | ---------- |
+| Cycles | 3579             | 180        |
+| LUTs   | 4029             | 8136       |
+| FFs    | 7326             | 4956       |
+| BRAMs  | 0                | 4          |
+| DSPs   | 3                | 15         |
+
+As we can see our code structure affects performance greatly, as we were able to reduce the number of cycles 20 fold, which would have been impossible had we not refactored.
 
 ## Why Avoiding Dependencies Matters
 If your loops have dependencies between iterations, you cannot unroll them, and your design will execute sequentially, wasting the FPGA’s parallel compute capabilities. By restructuring your code to eliminate these dependencies, you allow Vitis HLS to unroll your loops fully or partially, significantly improving throughput by allowing your design to process multiple data elements in parallel. This enables your FPGA to execute your workloads faster while maintaining efficient use of the hardware resources you have available.

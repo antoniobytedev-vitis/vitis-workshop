@@ -11,8 +11,8 @@ Using pipelining, you can allow the loop to start a new iteration every cycle ev
 
 ```cpp
 void multiply_pipeline(int a[256], int c[256]) {
-#pragma HLS PIPELINE II=1
-    for (int i = 0; i < 256; i++) {
+    rolled:for (int i = 0; i < 256; i++) {
+        #pragma HLS PIPELINE II=1
         c[i] = a[i] * 4;
     }
 }
@@ -24,13 +24,22 @@ Using unrolling, you can reduce the total number of cycles by processing multipl
 
 ```cpp
 void multiply_unroll(int a[256], int c[256]) {
-    for (int i = 0; i < 256; i++) {
-#pragma HLS UNROLL factor=4
+    unrolled:for (int i = 0; i < 256; i++) {
+#pragma HLS UNROLL factor=2
+#pragma HLS PIPELINE II=1
         c[i] = a[i] * 4;
     }
 }
 ```
-Here, the design processes four elements per cycle, reducing the total execution time to 64 cycles, but requiring four multipliers and sufficient memory bandwidth to handle four reads and writes per cycle.
+| metric | rolled | unrolled |
+| ------ | ------ | -------- |
+| Cycles | 258    | 130      |
+| LUTs   | 70     | 56       |
+| FFs    | 20     | 29       |
+| BRAMs  | 0      | 0        |
+| DSPs   | 0      | 0        |
+
+Here, the design processes two elements per cycle, reducing the total execution time to 128 cycles, but requiring two multipliers and sufficient memory bandwidth to handle four reads and writes per cycle.
 
 ## Key Differences
 Pipelining increases throughput by allowing new data to enter the computation every cycle while reusing the same hardware across loop iterations. It is efficient in terms of hardware usage and is effective in reducing the effective latency per data element when the operation has a long delay.

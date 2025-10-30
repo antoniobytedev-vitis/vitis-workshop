@@ -15,12 +15,12 @@ void multiply_array(int a[256], int c[256]) {
 ```
 In this version, the loop executes one iteration per cycle, requiring 256 cycles to process the entire array.
 
-Using unrolling, you can instruct Vitis HLS to execute multiple iterations of the loop in parallel. For example, by unrolling the loop with a factor of 4, the design will process 4 elements per cycle, reducing the total execution time to 64 cycles instead of 256:
+Using unrolling, you can instruct Vitis HLS to execute multiple iterations of the loop in parallel. For example, by unrolling the loop with a factor of 2, the design will process 2 elements per cycle, reducing the total execution time to 128 cycles instead of 256:
 
 ```cpp
 void multiply_array_unroll(int a[256], int c[256]) {
     for (int i = 0; i < 256; i++) {
-#pragma HLS UNROLL factor=4
+#pragma HLS UNROLL factor=2
         c[i] = a[i] * 4;
     }
 }
@@ -36,7 +36,17 @@ void multiply_array_full_unroll(int a[256], int c[256]) {
     }
 }
 ```
-In this case, all 256 operations occur in parallel, completing the entire computation in one cycle. However, this requires significant FPGA resources, as it needs 256 multipliers and enough memory bandwidth to read and write 256 elements in a single cycle.
+By doing this vitis will replicate hardware so that all loop iterations can be executed in parallel. However, in this example,
+we are limited by the number of memory ports so a complete unroll is meaningless. This will be explained further in the memory section.
+
+| metric | rolled | unrolled |complete unroll|
+| ------ | ------ | -------- |---------------|
+| Cycles | 258    | 130      |128            |
+| LUTs   | 70     | 56       |4751           |
+| FFs    | 20     | 29       |129            |
+| BRAMs  | 0      | 0        |0              |
+| DSPs   | 0      | 0        |0              |
+
 
 ## Why Unrolling Matters
 Unrolling allows your design to leverage the FPGA’s ability to execute many operations simultaneously, dramatically reducing execution time. By unrolling loops, you can match the parallelism of your algorithm to the available FPGA resources, increasing throughput and making your design capable of handling high-data-rate applications.

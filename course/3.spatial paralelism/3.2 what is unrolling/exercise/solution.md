@@ -44,6 +44,6 @@ void normalize(int in[N], float out[N]) {
 | **LUTs Used**                 |    729                |                          887      |      5634                                 |
 | **FFs Used**                  |        822            |  1132                                |        1470                         |
 | **DSPs Used**                 |       8               |                         11      |                             11       |
-|
+|**BRAMs Used**|0|0|0
 
 The best option out of the 3 is unrolling by a factor of 2. This allows us to duplicate the throughput without having reached the point of diminishing returns. This means that duplicating the area doubles our throughput.
