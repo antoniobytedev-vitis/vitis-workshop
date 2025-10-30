@@ -1,10 +1,17 @@
+# Internal Memory Use
 Memory is a critical part of FPGA design. This section covers how to efficiently store and access data using local arrays, block RAM, and partitioning techniques. You'll learn how access patterns and array configurations directly affect performance and area.
 
+## Index
 
-Las siguientes carpetas contienen
-* 4.1 explicación de los tipos de memoria y ejercicio para definir distintos tipos
-* 4.2 Conflictos de memoria se basa sobre todo en array_partition y contiene un ejercicio que se basa en esto.
-Se copian los datos en un buffer pq si no vitis al ser memoria externa no le asigna ninguna bram.
-* 4.3 Se basa en array reshape y en un ejercicio sobre este
-* 4.4 Explica las dimensiones en array partition para trabajar con matrices
-* advanced esta seccion tiene ejercicios de varias partes del tema. He pensado en crear una carpeta aparte para que cuando otra gente trabaje en el repositorio los pueda añadir ahí directamente, ya que hay ejercicios que no tienen por qué encajar solo en una parte.
+* **4.1** Explaining the different memory types and how to define them
+    * Exercise about defining different types of memory
+* **4.2** Explaining array partition and how it can be used to increment throughput.
+    * Exercise about partitioning a memory that is used in an unroll loop so that more data can be accesed at once.
+* **4.3** Explaining array reshape and how it can save resources and increment throughput.
+    * Exercise about reshaping to increment throughput
+* **4.4** Explaining how to partition and reshape 2D arrays.
+    * Exercise about partitioning the second dimention of a matrix.
+* **Advanced** Various exercises
+    * **Exercise 1** about partitioning and pipelining
+    * **Exercise 2** comparing partition and reshape
+    * **Exercise 3** choosing the correct factor when reshaping

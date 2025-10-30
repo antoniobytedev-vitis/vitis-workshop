@@ -7,8 +7,6 @@ Using array reshape do the minimum partition possible to get the most throughput
 | **Total Latency (cycles)**    |                       |                                 |                                    |
 | **LUTs Used**                 |                       |                                 |                                    |
 | **FFs Used**                  |                        |                                 |                                    |
- **BRAMs used**                  |                        |                                 | 
-<<<<<<< Updated upstream
-=======
+ **BRAMs used**                  |                        |                                 |
  |**DSP used**||||
->>>>>>> Stashed changes
+

@@ -7,3 +7,4 @@ Synthesize the code twice. First as is and then by doing a complete partition of
 | **LUTs Used**                 |                        |                                 |                                    |
 | **FFs Used**                  |                        |                                 |                                    |
 | **DSPs used**                  |                        |                                 |   
+| **BRAMs used**|||||

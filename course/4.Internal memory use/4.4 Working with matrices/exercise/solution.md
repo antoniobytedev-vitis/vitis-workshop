@@ -16,14 +16,11 @@ void matvec_mult(int A[64][64], int x[64], int y[64]) {
 ## Finished table
 | Metric                        | **Without Partitioning** | **With Complete partitioning** 
 | ----------------------------- | ---------------------- | ------------------------------- | 
-| **Total Latency (cycles)**    |          2087            |        105                         |                                    |
-| **LUTs Used**                 |     2276                   | 4060                                |                                    |
-| **FFs Used**                  |        3003                |     6911                            |                                    |
-<<<<<<< Updated upstream
-| **DSPs used**                  |      6                  |192                                 |                                    |
-=======
-| **DSPs Used**                  |      6                  |192                                 |                                    |
-|**BRAMs Used**|0|0||
->>>>>>> Stashed changes
+| **Total Latency (cycles)**    |          2087            |        105  |                                                        
+| **LUTs Used**                 |     2276                   | 4060                                |                        
+| **FFs Used**                  |        3003                |     6911                          | 
+|**DSPs Used**                  |      6                  |192  |
+**BRAMs Used**|0|0|
+
 
 By partitioning the correct dimension we can increase the throughput exponentially. This solution can be improved further by replacing the complete partitioning by a cyclic partitioning with factor=2, achieving the same throughput with a much lower area.
