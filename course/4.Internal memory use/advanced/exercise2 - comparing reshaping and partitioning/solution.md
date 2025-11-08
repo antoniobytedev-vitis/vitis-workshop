@@ -31,7 +31,7 @@ void top_function_partition(ap_int<32> A[N], ap_int<32> B[N], ap_int<32> C[N]) {
 }
 ```
 ## Finished Table
-| Metric                        | **Without Partitioning** | **With Partitioning** |Without Pipeline
+| Metric                        | **Without Partitioning** | **With Partitioning** |**Without Pipeline**
 | ----------------------------- | ---------------------- | ------------------------------- | ------------------------------- | 
 | **Total Latency (cycles)**    |                       |   |                              |                                    |
 | **LUTs Used**                 |           |            |                                 |                                    |
