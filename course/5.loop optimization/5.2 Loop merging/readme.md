@@ -33,8 +33,20 @@ void process_data_merged(int a[256], int b[256], int c[256]) {
 
 }
 ```
+
+| metric          | Without Merging | With Merging |
+| --------------- | --------------- | ------------ |
+| Latency(Cycles) | 520             | 259          |
+| LUTs            | 228             | 112          |
+| FFs             | 91              | 64           |
+| BRAMs           | 0               | 0            |
+| DSPs            | 0               | 0            |
+
 By merging the loops, Vitis HLS transforms the two loops into a single loop with 256 iterations, removing the redundant initialization and exit cycles from the second loop. Pipelining can now be applied across both operations, ensuring the design produces one set of outputs (b[i] and c[i]) per cycle without stalls, maximizing hardware utilization and reducing overall execution time.
 
+```
+Note: Vitis will try to merge ALL loops in the same level to the directive and if it isn't possible to merge one due to dependencies the pragma will be ignored.  This can be avoided by moving the loops you dont want to merge to a sub function and turning inline off.
+```
 ## Why Loop Merging Matters
 Without loop merging, independent loops operating over the same data range add unnecessary control overhead, reduce the effectiveness of pipelining, and underutilize FPGA resources. Loop merging aligns multiple compatible operations into a single pass, reducing latency while improving throughput.
 

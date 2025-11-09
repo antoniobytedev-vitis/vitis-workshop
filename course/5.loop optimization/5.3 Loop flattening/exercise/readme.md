@@ -8,3 +8,5 @@ Your task is to identify and fix this inefficiency by removing the problematic l
 | **Total Latency (cycles)**    |                      |                                 |                                    |
 | **LUTs Used**                 |                        |                                 |                                    |
 | **FFs Used**                  |                        |                                 |                                    |
+|**BRAMs Used**||
+|**DSPs Used**||

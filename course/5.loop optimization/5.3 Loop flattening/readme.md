@@ -9,6 +9,7 @@ Consider a simple matrix addition where each element of two matrices is added to
 void add_matrices(int a[64][64], int b[64][64], int c[64][64]) {
     for (int i = 0; i < 64; i++) {
         for (int j = 0; j < 64; j++) {
+            #pragma HLS LOOP_FLATTEN off
             c[i][j] = a[i][j] + b[i][j];
         }
     }
@@ -27,15 +28,20 @@ void add_matrices_flatten(int a[64][64], int b[64][64], int c[64][64]) {
     for (int i = 0; i < 64; i++) {
         for (int j = 0; j < 64; j++) {
     #pragma HLS LOOP_FLATTEN
-#pragma HLS PIPELINE II=1
             c[i][j] = a[i][j] + b[i][j];
         }
     }
 }
 ```
+| metric          | With Flattening | Withput Flattening |
+| --------------- | --------------- | ------------ |
+| Latency(Cycles) | 4100          | 4418       |
+| LUTs            | 252         | 180          |
+| FFs             | 158              | 85          |
+| BRAMs           | 0               | 0            |
+| DSPs            | 0               | 0            |
 
-By flattening the loops, Vitis HLS merges them into a single loop with 64 x 64 = 4096 iterations, eliminating the transition cycles between the outer and inner loops. Combined with pipelining, this allows one addition to execute per cycle, achieving II = 1 without additional control overhead. Your design now uses the FPGA’s adder resources efficiently, continuously processing data each cycle without stalls, and reducing total execution latency.
-
+By flattening the loops, Vitis HLS merges them into a single loop with 4096 iterations, eliminating the transition cycles between the outer and inner loops. 
 ```
 Note 1: By default vitis will try to flatten perfect loops unless the pragma hls LOOP_FLATTEN off is used
 ```
