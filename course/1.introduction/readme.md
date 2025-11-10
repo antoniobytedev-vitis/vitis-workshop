@@ -51,7 +51,7 @@ This repository is designed for:
 - Researchers exploring hardware-software co-design  
 - Engineers preparing to optimize compute kernels on FPGA  
 
-No prior HDL knowledge is required.  
+Having Vitis installed, knowing how to run a C Synthesis and 
 Basic C/C++ experience is enough to begin.
 
 ---
