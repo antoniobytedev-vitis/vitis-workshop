@@ -7,32 +7,44 @@ Inlining is a technique in Vitis HLS that allows you to replace a function call 
 Here is a simple example where an addition function is used inside a loop.
 
 ```cpp
-int add(int x, int y) {
-    return x + y;
+int add_element(int x) {
+#pragma HLS inline off
+    return x * 2;
 }
 
-void top_function(int a[256], int b[256], int c[256]) {
+void datapath1(int a[256], int b[256], int c[256]) {
     for (int i = 0; i < 256; i++) {
-        c[i] = add(a[i], b[i]);
+#pragma HLS UNROLL
+        c[i] = add_element(b[i]) + a[i];
     }
 }
+
 ```
 
 In this sequential version, the tool creates a separate block of hardware for the add function.
 
 If we inline the function, the addition becomes part of the loop itself:
 ```cpp
-int add(int x, int y) {
-    #pragma HLS INLINE
-    return x + y;
+int add_element(int x) {
+#pragma HLS inline 
+    return x * 2;
 }
 
-void top_function(int a[256], int b[256], int c[256]) {
+void datapath1(int a[256], int b[256], int c[256]) {
     for (int i = 0; i < 256; i++) {
-        c[i] = add(a[i], b[i]);
+#pragma HLS UNROLL
+        c[i] = add_element(b[i]) + a[i];
     }
 }
+
 ```
+| metric          | With Inline| Without Inline |
+| --------------- | ---------------- | ------------- |
+| Latency(Cycles) |     129      |       129    |
+| LUTs            |      16097    |     6191       |
+| FFs             | 8322            | 194          |
+| BRAMs           | 0               | 0            |
+| DSPs            | 0                | 0             |
 With the INLINE directive, the function is no longer synthesized as a separate block. Instead, its body is inserted directly into the loop. 
 ## Why INLINE Matters
 

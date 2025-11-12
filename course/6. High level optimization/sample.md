@@ -1,2 +1,0 @@
-
-Terminar ejercicio terminar intro

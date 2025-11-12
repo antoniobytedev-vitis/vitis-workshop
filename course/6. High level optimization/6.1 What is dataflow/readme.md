@@ -25,7 +25,6 @@ void top_function(int a[256], int b[256], int d[256]) {
     multiply_array(c, d);
 }
 ```
-In this version, the FPGA waits for the entire add_arrays function to finish before starting multiply_array, even though it could handle processing and multiplication in a streaming manner for each element. If each operation takes 3 cycles, the total execution time will be around 1536 cycles for 256 elements.
 
 Using the DATAFLOW pragma, you can allow add_arrays and multiply_array to execute concurrently, processing and multiplying data in a streaming pipeline:
 
@@ -37,8 +36,15 @@ void top_function(int a[256], int b[256], int d[256]) {
     multiply_array(c, d);
 }
 ```
-With this modification, the design will still take a few cycles to produce the first result, but after that, it will produce one result per cycle if the functions are pipelined internally. This reduces total execution time to around 768 cycles instead of 1536, allowing your design to handle continuous data streams much more efficiently.
+| metric          | Without Dataflow | With Dataflow |
+| --------------- | ---------------- | ------------- |
+| Latency(Cycles) | 520              | 518           |
+| LUTs            | 236              | 184           |
+| FFs             | 90               | 81            |
+| BRAMs           | 1                | 1             |
+| DSPs            | 0                | 0             |
 
+With this modification, not only will the design be more efficient, but most importantly, spend less resources.
 ## Why Dataflow Matters
 FPGAs are designed to perform multiple operations simultaneously, but unless you explicitly tell Vitis HLS to use dataflow, your top-level functions will execute sequentially, underutilizing the device’s parallelism. Dataflow allows you to structure your design so that independent or pipelined stages can operate concurrently, keeping all parts of your FPGA busy and increasing the data processing throughput of your design.
 
