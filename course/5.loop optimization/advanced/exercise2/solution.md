@@ -1,5 +1,6 @@
 # Solution
 ```cpp
+#define N 128
 void datapath1(int A[N], int B[N]) {
 #pragma HLS LOOP_MERGE
 int buffer[N];
