@@ -49,6 +49,6 @@ void datapath3(int a[256], int c[256])
 ![Cycles with pipeline](../../resources/pipeline%20fuera.png)
 Looking at the data we can see that the throughput has doubled again but the area has increased exponentially.
 
-**When placing the pipeline directive above a loop it unrolls it completely without stating it explicitly** and this also applies to nested loops. This is the reason we get 128 as the only limiting factor is the number of ports in the memory storing a. It is important to note that this will only happen on perfect or semi-perfect loops.
+**When placing the pipeline directive above a loop it unrolls it completely without stating it explicitly** and this also applies to nested loops. This is the reason we get 128 as the only limiting factor is the number of ports in the memory storing a.
 
 Note that the mentioned method will even ignore the unroll off directive so be careful.
