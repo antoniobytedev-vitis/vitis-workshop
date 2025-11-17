@@ -1,6 +1,6 @@
 #include <stdint.h>
 
-#define N 8   // Grid size
+#define N 64   // Grid size
 
 void greedy_min_cost(int grid[N][N], int *total_cost) {
     int visited[N][N];

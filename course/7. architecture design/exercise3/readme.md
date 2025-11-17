@@ -1,3 +1,4 @@
+# Task
 Create a project in Vitis HLS with the attached code for the xa7a12tcpg238-2I card using a clock period of 10 ns. For each of the points below, create a new solution, provide a reasoned explanation of the pragmas and code changes, perform the synthesis, attach the results table, explain the consistency of these results, and provide reasoned answers to the questions.
 
 1. Baseline Synthesis and Architecture Analysis
@@ -14,3 +15,12 @@ Create a comparative table with the results of the three previous architectures 
 
 5. Adaptability for Variable Input Size
 Which of the previous architectures would be easiest to adapt for the case of a variable-sized polynomial, where the size and the coefficients are input parameters of the function? Reason your answer.
+
+# Finished table
+| metric          | Baseline | Fully Iterative | Latency Reduction(Parallelization) |
+| --------------- | -------- | --------------- | ---------------------------------- |
+| Latency(Cycles) |          |                 |                                    |
+| LUTs            |          |                 |                                    |
+| FFs             |          |                 |                                    |
+| DSPs            |          |                 |                                    |
+| BRAMs           |          |                 |                                    |

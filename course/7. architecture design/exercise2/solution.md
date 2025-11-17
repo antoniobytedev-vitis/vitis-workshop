@@ -18,7 +18,7 @@ void matrix_transpose_basic(int A[N][N], int B[N][N]) {
 }
 ```
 
- By disabling loop flatten and adding the pipeline off directive in the outer loop we can make this design fully iterative.
+ By disabling loop flatten and adding the pipeline off directive in the outer loop we can make this design fully iterative,which reduces area but increments the number of cycles.
 
 3.
 ```cpp

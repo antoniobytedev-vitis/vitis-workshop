@@ -2,72 +2,77 @@
 
 #define MAX_ITEMS 32
 
-
-void sort(float ratio[MAX_ITEMS],float values[MAX_ITEMS],float weights[MAX_ITEMS])
+void compute_sorted(
+        float ratio[MAX_ITEMS],
+        float values_in[MAX_ITEMS],
+        float weights_in[MAX_ITEMS],
+        float values_sorted[MAX_ITEMS],
+        float weights_sorted[MAX_ITEMS])
 {
-for (int i = 0; i < MAX_ITEMS - 1; i++) {
+    // Copy inputs to sortable local arrays
+    for(int i=0;i<MAX_ITEMS;i++){
+        values_sorted[i]  = values_in[i];
+        weights_sorted[i] = weights_in[i];
+        ratio[i] = values_in[i] / weights_in[i];
+    }
+
+    // Selection sort descending
+    for(int i = 0; i < MAX_ITEMS - 1; i++) {
         int max_index = i;
         for (int j = i + 1; j < MAX_ITEMS; j++) {
-            if (ratio[j] > ratio[max_index]) {
+            if (ratio[j] > ratio[max_index])
                 max_index = j;
-            }
         }
-        // Swap values
-        float temp_ratio = ratio[max_index];
+
+        // Swap ratio, values, weights
+        float tr = ratio[max_index];
         ratio[max_index] = ratio[i];
-        ratio[i] = temp_ratio;
+        ratio[i] = tr;
 
-        float temp_val = values[max_index];
-        values[max_index] = values[i];
-        values[i] = temp_val;
+        float tv = values_sorted[max_index];
+        values_sorted[max_index] = values_sorted[i];
+        values_sorted[i] = tv;
 
-        float temp_w = weights[max_index];
-        weights[max_index] = weights[i];
-        weights[i] = temp_w;
+        float tw = weights_sorted[max_index];
+        weights_sorted[max_index] = weights_sorted[i];
+        weights_sorted[i] = tw;
     }
 }
-float pick_items(float& total_value,float weights[MAX_ITEMS],
-                          float values[MAX_ITEMS],float capacity)
+
+void pick_items_stage(
+        float values_sorted[MAX_ITEMS],
+        float weights_sorted[MAX_ITEMS],
+        float capacity,
+        float *total_value_out)
 {
-// Greedy pick
-    total_value = 0.0f;
+    float total = 0.0f;
 
-    pick_items:
-    for (int i = 0; i < MAX_ITEMS; i++) {
-        if (capacity == 0)
-            break;
+pick_loop:
+    for(int i=0;i<MAX_ITEMS;i++){
+        float w = weights_sorted[i];
+        float v = values_sorted[i];
 
-        if (weights[i] <= capacity) {
-            total_value += values[i];
-            capacity -= weights[i];
-        } else {
-            float fraction = capacity / weights[i];
-            total_value += values[i] * fraction;
-            capacity = 0;
-        }
+        float take = (capacity > 0 && w <= capacity) ? 1.0f
+                    : (capacity > 0 ? capacity/w : 0.0f);
+
+        total += v * take;
+        capacity -= w * take;
     }
+    *total_value_out = total;
 }
-// Top function
-void fractional_knapsack(float weights[MAX_ITEMS],
-                          float values[MAX_ITEMS],
-                          
-                          float capacity,float &total_value) {
 
+void fractional_knapsack(
+        float weights[MAX_ITEMS],
+        float values[MAX_ITEMS],
+        float capacity,
+        float *total_value)
+{
 
     float ratio[MAX_ITEMS];
+    float values_sorted[MAX_ITEMS];
+    float weights_sorted[MAX_ITEMS];
 
-    // Compute value-to-weight ratio
-    compute_ratio:
-    for (int i = 0; i < MAX_ITEMS; i++) {
-        ratio[i] = values[i] / weights[i];
-    }
 
-    // Sort items by ratio (descending) using selection sort
-    
-    sort(ratio,values,weights);
-    pick_items(total_value,weights,values,capacity);
-
-    
-
-   
+    compute_sorted(ratio, values, weights, values_sorted, weights_sorted);
+    pick_items_stage(values_sorted, weights_sorted, capacity, total_value);
 }

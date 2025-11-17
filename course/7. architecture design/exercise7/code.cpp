@@ -1,19 +1,36 @@
-#define N 128
+#define N 256
 
-void greedy_score(float weights[N], float values[N], float score_out[N], float &max_score, float threshold) {
-    max_score = 0.0;
+typedef struct {
+    float real;
+    float imag;
+} complex_t;
 
-    calc_loop:
+void fft(complex_t x[N], complex_t X[N]) {
+
+    complex_t a[N];
+
+copy_loop:
     for(int i = 0; i < N; i++) {
-        if(values[i] > threshold)
-            score_out[i] = values[i] / weights[i];
-        else
-            score_out[i] = 0;
+        a[i] = x[i];     // Copy step
     }
 
-    max_loop:
-    for(int j = 0; j < N; j++) {
-        if(score_out[j] > max_score)
-            max_score = score_out[j];
+init_loop:
+    for(int i = 0; i < N; i++) {
+        // Initialize values in a deterministic and independent way
+        a[i].real = a[i].real * 0.5f + 1.0f;
+        a[i].imag = a[i].imag * 0.25f;
+    }
+
+transform_loop:
+    for(int i = 0; i < N; i++) {
+        // Arbitrary transformation, no dependency on neighbors
+        float temp = a[i].real + a[i].imag;
+        a[i].real = temp * 0.8f;
+        a[i].imag = temp * 1.2f;
+    }
+
+write_loop:
+    for(int i = 0; i < N; i++) {
+        X[i] = a[i];
     }
 }

@@ -1,3 +1,4 @@
+# Solution
 1. This generates an architecture that applies automatically the pipeline pragma and unrolls the conv_inner loop by a factor of 5.
 
 2. 
@@ -53,7 +54,7 @@ void convolution_1d(int input[N], int kernel[K], int output[OUT_LEN]) {
     }
 }
 ```
-Because the inner loop is unrolled completely to reduce latency by a factor of 4 we only need to partition all variables by a cyclic factor of 2, adding 4 new ports and thus increasing throughput by a factor of 4.
+Because the inner loop is unrolled completely, to reduce latency by a factor of 4 we only need to partition all variables by a cyclic factor of 2, adding 4 new ports and thus increasing throughput by a factor of 4.
 
 4.
 
