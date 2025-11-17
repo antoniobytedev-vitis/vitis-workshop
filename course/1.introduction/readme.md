@@ -54,24 +54,20 @@ Verify settings and click **Finish**.
 
 
 
-## Running C Synthesis (GUI)
-Open or create a solution
-
-In the Solution pane, create a new solution (e.g., solution1) if not already done.
-
+## Running C Synthesis 
 Run C Synthesis
 
-Click Run C Synthesis (or right-click solution → Run C Synthesis).
+**1. Click Run C Synthesis on the bottom left corner.**
 
-The tool performs source analysis, scheduling, and RTL generation. The console shows progress and messages: warnings and errors.
+- The tool performs source analysis, scheduling, and RTL generation. The console shows progress and messages: warnings and errors.
 
-Monitor console messages
+**2. Monitor console messages**
 
-If synthesis fails, the console will report errors (e.g., illegal code for synthesis, unsupported constructs).
+- If synthesis fails, the console will report errors (e.g., illegal code for synthesis, unsupported constructs).
 
-Fix the reported issues in the source code and repeat synthesis.
+**3. Fix the reported issues in the source code and repeat synthesis.**
 
-Open reports
+**4. Open reports**
 
 After successful synthesis, open the generated reports:
 
@@ -81,31 +77,14 @@ csynth_design_size.rpt — instruction/operation counts.
 
 csynth.rpt contains Latency, II, pipeline status, and resource summary.
 
-Use Report → Launch or file explorer to inspect.
-
-Examine key outputs
-
-Latency: cycles for first result or for processing single input.
-
-II (Initiation Interval): cycles between starting successive iterations.
-
-Estimated clock: frequency and timing slack.
-
-Resource usage: LUTs, FFs, BRAM, DSPs.
-
-
 Project folder structure (typical):
 ```
 <project_root>/
   project.tcl
   hls/
-    solution1/
-      syn/
+    Output/
         report/
           csynth.rpt
-          csynth_design_size.rpt
         vhdl/ or verilog/
       sim/
 ```
-csynth.rpt: main synthesis report (latency, II, resource summary).
-¡

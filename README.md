@@ -52,7 +52,6 @@ This repository is designed for:
 - Engineers preparing to optimize compute kernels on FPGA  
 
 Having Vitis installed and basic C/C++ experience is enough to begin.
-
 ---
 
 ## Learning Outcomes
