@@ -16,10 +16,10 @@ void pascal_triangle(int P[N][N]) {
 Because the inner loop has a variable trip count it can't be unrolled (which is done automatically by pipelining the outer loop). This means that to get the most throughput pipelining the inner loop is the way to go.
 
 ## Finished table
-| Metric                        | **Without Refactoring** | **With refactoring** | 
+| Metric                        | **Pipeline outermost** | **Pipeline innermost** | 
 | ----------------------------- | ------------------------------- | ---------------------------------- |
-| **Total Latency (cycles)**    |                        |                                 |                                    |
-| **LUTs Used**                 |                        |                                 |                                    |
-| **FFs Used**                  |                        |                                 |                                    |
-| **DSPs Used**                 |                        |                                 |                                    |
-| **BRAMs Used**                |                        |                                 |                                    |
+| **Total Latency (cycles)**    |             49409           |        17153                         |                                    |
+| **LUTs Used**                 |    352                    |   407                              |                                    |
+| **FFs Used**                  |     106                   |  183                               |                                    |
+| **DSPs Used**                 |         0               |                                0 |                                    |
+| **BRAMs Used**                |     0                   | 0                                |                                    |

@@ -1,7 +1,7 @@
 # Task
 Apply pipeline in the external loop and the internal and compare the results. Why is it more efficient to pipeline the inner loop when in other exercises it's optimal to pipeline the outer one?
 ## Finished table
-| Metric                        | **Without Refactoring** | **With refactoring** | 
+| Metric                        | **Pipeline outermost** | **Pipeline innermost** | 
 | ----------------------------- | ------------------------------- | ---------------------------------- |
 | **Total Latency (cycles)**    |                        |                                 |                                    |
 | **LUTs Used**                 |                        |                                 |                                    |

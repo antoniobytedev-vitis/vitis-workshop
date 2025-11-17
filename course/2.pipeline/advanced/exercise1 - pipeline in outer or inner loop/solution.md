@@ -42,12 +42,14 @@ void matmulproduct(int mat1[N][N], int mat2[N][N], int result[N][N]) {
     }
 }
 ```
+The fastest version is pipelining in col, as it unrolls the innermost loop completely, replicating the area of the loop product by a factor of N. The one with the lowest area is the architecture without pipeline, pipelininc in the product loop is close second but its throughput is much better thus becoming the most balanced architecture of the 3.
 
 ## Finished table
-| Metric                        | **Without Pipelining** | **Pipelining in col`** | **Pipelining in product** |
+| Metric                        | **Without Pipelining** | **Pipelining in col** | **Pipelining in product** |
 | ----------------------------- | ---------------------- | ------------------------------- | ---------------------------------- |
-| **Total Latency (cycles)**    |                        |                                 |                                    |
-| **LUTs Used**                 |                        |                                 |                                    |
-| **FFs Used**                  |                        |                                 |                                    |
-| **DSPs Used**                 |                        |                                 |                                    |
-| **BRAMs Used**                |                        |                                 |                                    |
+| **Total Latency (cycles)**    |       134241                 |        1048                         | 40033                              |
+| **LUTs Used**                 |     511                   |        12807                         |       528                             |
+| **FFs Used**                  |     1368                   |       38282                          |1433                             |
+| **DSPs Used**                 |       3                 |         96                        |      3                              |
+| **BRAMs Used**                |        0                |        0                         |       0                             |
+
