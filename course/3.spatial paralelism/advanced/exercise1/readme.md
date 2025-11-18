@@ -8,5 +8,5 @@ Synthesize the code without unrolling, unrolling the inner loop and unrolling th
 | **LUTs Used**                 |                  |                               |                                    |
 | **FFs Used**                  |                    |                                 |                              |
 | **DSPs Used**                 |                     |                               |                                   |
+| **BRAMs Used**                 |                    |                               |                                   |
 |
-

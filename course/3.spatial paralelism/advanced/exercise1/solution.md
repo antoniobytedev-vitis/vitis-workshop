@@ -34,8 +34,9 @@ Unrolling the inner loop is the most efficient because by doing this we copy the
 # Finished table
 | Metric                        | **No unroll** | **Unroll inner** | **Unroll outer** |
 | ----------------------------- | ---------------------- | ------------------------------- | ---------------------------------- |
-| **Latency in second loop (cycles)**    |                      |                              |                                   |
-| **LUTs Used**                 |                  |                               |                                    |
-| **FFs Used**                  |                    |                                 |                              |
-| **DSPs Used**                 |                     |                               |                                   |
+| **Latency in second loop (cycles)**    |        545              |        145                      |   528                                |
+| **LUTs Used**                 |   123               |      347                         |     1030                               |
+| **FFs Used**                  |    41                |        55                         |   177                           |
+| **DSPs Used**                 |  0                   |            0                   |   0                                |
+| **BRAMs Used**                 |    0                |            0                   |    0                               |
 |
