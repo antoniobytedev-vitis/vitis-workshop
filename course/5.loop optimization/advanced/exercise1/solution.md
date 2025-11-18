@@ -17,7 +17,6 @@ initialize:for(int i=0;i<N;i++)
 main:for(int i=0;i<N;i++)
 {
     #pragma HLS PIPELINE off
-    buffer[i][i] = 1;
     inner2:for(int j=0;j<N;j++)
     {
         #pragma HLS LOOP_FLATTEN
@@ -41,7 +40,6 @@ initialize:for(int i=0;i<N;i++)
 main:for(int i=0;i<N;i++)
 {
     #pragma HLS PIPELINE off
-    buffer[i][i] = 1;
     inner2:for(int j=0;j<N;j++)
     {
         #pragma HLS LOOP_FLATTEN off
@@ -56,7 +54,7 @@ By turning loop flattening only outer loops can be merged. The result is a loop 
 | Metric                        | **Without Flattening** | **With Flattening** 
 | ----------------------------- | ---------------------- | ------------------------------- | 
 | **Total Latency (cycles)**    |        33922            |               16389                  |                                    |
-| **LUTs Used**                 |    355                   | 377                                |                                    |
+| **LUTs Used**                 |    379                  | 377                                |                                    |
 | **FFs Used**                  |   121                     | 157                               |                                    |
 |**BRAMs Used**|32|32
 |**DSPs Used**|0|0

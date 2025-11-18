@@ -13,7 +13,6 @@ initialize:for(int i=0;i<N;i++)
 main:for(int i=0;i<N;i++)
 {
     #pragma HLS PIPELINE off
-    buffer[i][i] = 1;
     for(int j=0;j<N;j++)
     {
         #pragma HLS LOOP_FLATTEN
