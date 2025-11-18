@@ -81,4 +81,4 @@ The inline version has more throughput but the dataflow version has considerably
 | **LUTs Used**                 |   8473                    |  525                               |                                    |
 | **FFs Used**                  |  3783                     |  271                               |                                    |
 | **BRAMs Used**                  |  0                    |   2                             |                                    |
-| **DSPUsed**                  |  0                     |   0                        |                                    |
+| **DSPs Used**                  |  0                     |   0                        |                                    |

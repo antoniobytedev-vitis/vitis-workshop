@@ -7,4 +7,4 @@ Synthesize a version inlining all sub functions and one using dataflow. Which on
 | **LUTs Used**                 |                       |                                 |                                    |
 | **FFs Used**                  |                       |                                 |                                    |
 | **BRAMs Used**                  |                      |                                |                                    |
-| **DSPUsed**                  |                       |                           |                                    |
+| **DSPs Used**                  |                       |                           |                                    |
