@@ -17,7 +17,8 @@ main:for(int i=0;i<N;i++)
     for(int j=0;j<N;j++)
     {
         #pragma HLS LOOP_FLATTEN
-        c[i][j]=buffer[i][j]+b[i][j];
+        c[i][j]=a[i][j]+b[i][j];
     }
 }
+c[0][0]=buffer[0][127];
 }
