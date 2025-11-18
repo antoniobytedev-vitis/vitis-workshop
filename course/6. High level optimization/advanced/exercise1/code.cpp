@@ -29,7 +29,7 @@ void histogram_reduce(int hist1[VALUE], int hist2[VALUE], int output[VALUE]) {
     }
 }
  //Top level function
-void datapath1(int inputA[INPUT/2], int inputB[INPUT/2], int hist[VALUE])
+void top_function(int inputA[INPUT/2], int inputB[INPUT/2], int hist[VALUE])
 {
     int hist1[VALUE];
     int hist2[VALUE];

@@ -74,11 +74,11 @@ void process_image(int A[K][N], int B[K][N]) {
     }
 }
 ```
-The inline version has more throughput but the inline version has considerably less area, as the code inside the functions isn't replicated.
+The inline version has more throughput but the dataflow version has considerably less area, as the code inside the functions isn't replicated. The dataflow architecture is considerably more balanced and in most use cases is the better one. However, if we are only interested in throughput inline is the way to go.
 | Metric                        | **With INLINE** | **With DATAFLOW** 
 | ----------------------------- | ---------------------- | ------------------------------- | 
-| **Total Latency (cycles)**    |                    |                                 |                                    |
-| **LUTs Used**                 |                       |                                 |                                    |
-| **FFs Used**                  |                       |                                 |                                    |
-| **BRAMs Used**                  |                      |                                |                                    |
-| **DSPUsed**                  |                       |                           |                                    |
+| **Total Latency (cycles)**    |       260             |      654                           |                                    |
+| **LUTs Used**                 |   8473                    |  525                               |                                    |
+| **FFs Used**                  |  3783                     |  271                               |                                    |
+| **BRAMs Used**                  |  0                    |   2                             |                                    |
+| **DSPUsed**                  |  0                     |   0                        |                                    |

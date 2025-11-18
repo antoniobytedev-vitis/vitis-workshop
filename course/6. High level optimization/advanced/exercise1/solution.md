@@ -43,11 +43,12 @@ void datapath1(int inputA[INPUT/2], int inputB[INPUT/2], int hist[VALUE])
 }
  
 ```
+By using the dataflow pragma we can reduce latency by a 100 cycles while maintaining a similar area. This showcases the importance of dataflow when working with sub functions.
 # Finished table
 | Metric                        | **Without DATAFLOW** | **With DATAFLOW** 
 | ----------------------------- | ---------------------- | ------------------------------- | 
-| **Total Latency (cycles)**    |                    |                                 |                                    |
-| **LUTs Used**                 |                       |                                 |                                    |
-| **FFs Used**                  |                       |                                 |                                    |
-| **BRAMs Used**                  |                      |                                |                                    |
-| **DSPUsed**                  |                       |                           |                                    |
+| **Total Latency (cycles)**    |         527           |          394                       |                                    |
+| **LUTs Used**                 |       913                |       965                          |                                    |
+| **FFs Used**                  |       397                |     401                            |                                    |
+| **BRAMs Used**                  |     2                 |        2                        |                                    |
+| **DSPUsed**                  |         0              |            0               |                                    |
