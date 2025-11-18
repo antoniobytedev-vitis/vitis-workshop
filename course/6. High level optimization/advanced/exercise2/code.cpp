@@ -23,7 +23,7 @@ void activation_loop(int in_row[N], int out_row[N]) {
         out_row[j] = v;
     }
 }
-
+//top function
 void process_image(int A[K][N], int B[K][N]) {
     for (int i = 0; i < K; i++) {
         int tmp1[N], tmp2[N];
