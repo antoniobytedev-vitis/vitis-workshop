@@ -29,6 +29,7 @@ void top_function(int A[128][128], int B[128][128]) {
     }
 }
 ```
+By inlining the functions not only do we achieve higher throughput(100 cycles more) but we also reduce the area. However, if there were multiple calls to the inlined functions it would be better to turn inline off, as it would increase area without providing much benefit.
 
 ## Finished table
 | Metric                        | **Without inline** | **With inline** 
@@ -37,4 +38,3 @@ void top_function(int A[128][128], int B[128][128]) {
 | **LUTs Used**                 |         5379               |    5376                              |                                    |
 | **FFs Used**                  |   4081              |  4076                                                          |
           
-By inlining the functions not only do we achieve higher throughput(100 cycles more) but we also reduce the area. However, if there were multiple calls to the inlined functions it would be better to turn inline off, as it would increase area without providing much benefit.

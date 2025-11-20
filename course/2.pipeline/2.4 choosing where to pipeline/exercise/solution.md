@@ -34,6 +34,8 @@ void compute_shift_sum(int input[N], int output[N]) {
     }
 }
 ```
+By using pipeline outside the loop it unrolls it completely increasing performance almost twenty fold, despite it only increasing resources by a factor of 5. 
+
 ## Finished table
 | Metric                        | **Without Pipelining** | **With #pragma HLS PIPELINE in the `inside loop`** | **With #pragma HLS PIPELINE in the `outside loop`** |
 | ----------------------------- | ---------------------- | ------------------------------- | ---------------------------------- |
@@ -43,4 +45,3 @@ void compute_shift_sum(int input[N], int output[N]) {
 | **DSPs Used**                 |    0                    |         0                        |      0                              |
 | **BRAMs Used**                |     0                   |         0                        |       0                             |
 
-By using pipeline outside the loop it unrolls it completely increasing performance almost twenty fold, despite it only increasing resources by a factor of 5. 

@@ -19,6 +19,9 @@ void combine_arrays_reshaped(short a[SIZE], short b[SIZE], short c[SIZE], short 
     }
 }
 ```
+
+To get the maximum throughput in regards to area we need to unroll by a factor of 8. This is because cyclic reshaping allows us 2 accesses to each element per cycle.
+
 ## Complete table
 | Metric                        | **Without Unrolling** | **With Unrolling** 
 | ----------------------------- | ---------------------- | ------------------------------- | 
@@ -27,6 +30,4 @@ void combine_arrays_reshaped(short a[SIZE], short b[SIZE], short c[SIZE], short 
 | **FFs Used**                  |   78                     |                 397                |                                    |
 |**BRAMs Used**|0|0|
 |**DSP Used**|0|0|
-
-To get the maximum throughput in regards to area we need to unroll by a factor of 8. This is because cyclic reshaping allows us 2 accesses to each element per cycle.
 

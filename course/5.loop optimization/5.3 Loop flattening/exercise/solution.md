@@ -15,7 +15,7 @@ int row_sum=0;
 }
 
 ```
-If the loop has been flattened correctly, the name of the resulting loop should be outer_inner.
+If the loop has been flattened correctly, the name of the resulting loop should be outer_inner. This solution achieves better performance by removing the overhead between inner and outer loops.
 
 ## Finished table
 | Metric                        | **Without Flattening** | **With Flattening** 
@@ -26,4 +26,3 @@ If the loop has been flattened correctly, the name of the resulting loop should 
 |**BRAMs Used**|0|0
 |**DSPs Used**|0|0
 
-This solution achieves better performance by removing the overhead between inner and outer loops.

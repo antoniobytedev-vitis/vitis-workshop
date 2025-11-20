@@ -13,6 +13,8 @@ void matvec_mult(int A[64][64], int x[64], int y[64]) {
     }
 }
 ```
+
+By partitioning the correct dimension we can increase the throughput exponentially. This solution can be improved further by replacing the complete partitioning by a cyclic partitioning with factor=2, achieving the same throughput with a much lower area.
 ## Finished table
 | Metric                        | **Without Partitioning** | **With Complete partitioning** 
 | ----------------------------- | ---------------------- | ------------------------------- | 
@@ -22,5 +24,3 @@ void matvec_mult(int A[64][64], int x[64], int y[64]) {
 |**DSPs Used**                  |      6                  |192  |
 **BRAMs Used**|0|0|
 
-
-By partitioning the correct dimension we can increase the throughput exponentially. This solution can be improved further by replacing the complete partitioning by a cyclic partitioning with factor=2, achieving the same throughput with a much lower area.

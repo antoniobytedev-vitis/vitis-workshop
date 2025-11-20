@@ -62,6 +62,7 @@ for(int i=0;i<N;i++)
     }
 }
 ```
+As you can see in the table because we only unrolled by a factor of 4, partitioning by a cyclic factor of 4 is the best option for performance in regards to resources used. Using block partitioning doesn't help us at all, since the memory isn't partitioned in a way the hardware can take advantage from it. Complete partitioning, on the other hand, let's us get the same number of cycles as with cyclic partitioning but with exponentially more resources.
 
 ## Complete table
 
@@ -77,4 +78,3 @@ for(int i=0;i<N;i++)
 
 
 
-As you can see in the table because we only unrolled by a factor of 4, partitioning by a cyclic factor of 4 is the best option for performance in regards to resources used. Using block partitioning doesn't help us at all, since the memory isn't partitioned in a way the hardware can take advantage from it. Complete partitioning, on the other hand, let's us get the same number of cycles as with cyclic partitioning but with exponentially more resources.
