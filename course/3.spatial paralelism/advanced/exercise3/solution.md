@@ -16,7 +16,8 @@ void datapath1(int img_in[N][N], int img_out[N][N]) {
     }
 }
 ```
-
+Combining pipeline and unroll is much more efficient. Not only do we achieve double the throughput, but we also use a similar number of resources. This is because pipelining allows us to reduce the iteration latency significantly, compared to only unrolling.
+# Finished table
 | metric                          | Previous Exercise | Max Unroll Factor(2) |
 | ------------------------------- | ----------------- | -------------------- |
 | Latency in second loop (cycles) | 4225              | 2052                 |
@@ -25,4 +26,3 @@ void datapath1(int img_in[N][N], int img_out[N][N]) {
 | DSPs Used                       | 0                 | 0                    |
 | BRAMs Used                      | 0                 | 0                    |
 
-Combining pipeline and unroll is much more efficient. Not only do we achieve double the throughput, but we also use a similar number of resources. This is because pipelining allows us to reduce the iteration latency significantly, compared to only unrolling.
