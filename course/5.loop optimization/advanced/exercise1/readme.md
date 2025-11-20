@@ -7,6 +7,6 @@ Add the pragma loop merge to merge both outer loops and synthesize the results. 
 | **Total Latency (cycles)**    |                      |                                 |                                    |
 | **LUTs Used**                 |                        |                                 |                                    |
 | **FFs Used**                  |                        |                                 |                                    |
-| **DSPs used**                  |                        |                                 |   
-| **BRAMs used**|||||
+|**BRAMs Used**||
+|**DSPs Used**||
 

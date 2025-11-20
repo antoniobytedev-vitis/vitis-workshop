@@ -1,12 +1,10 @@
 # Task
-Add the pragma loop merge to merge both outer loops and synthesize the results. Now do the same turning loop flatten off. What happens?
-
+This loop can't merge properly. Why is this? Try to find a way to make loops merge. You can add new variables if you think it's necessary.
 ## Finished Table
-| Metric                        | **Without Flattening** | **With Flattening** 
+| Metric                        | **Without Refactoring** | **With Refactoring** 
 | ----------------------------- | ---------------------- | ------------------------------- | 
 | **Total Latency (cycles)**    |                      |                                 |                                    |
 | **LUTs Used**                 |                        |                                 |                                    |
 | **FFs Used**                  |                        |                                 |                                    |
-| **DSPs used**                  |                        |                                 |   
-| **BRAMs used**|||||
-
+|**BRAMs Used**||
+|**DSPs Used**||
