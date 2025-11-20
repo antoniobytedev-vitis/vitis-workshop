@@ -84,11 +84,6 @@ Start from the first section and proceed in order.
 Every section exercise builds on the previous ones but advanced exercises might need you to revisit them after you've 
 finished other sections. 
 
----
----
-**All synthesis results have been obtained using  the xa7a12tcpg238-2I part and on Vitis 2024.2**
----
-
 ## Goal of the Repository
 
 The goal is not just to “make code faster.”  
@@ -101,4 +96,9 @@ Once you understand how code translates to circuits — datapaths, pipelines, me
 - More resource efficient
 
 This skillset is rare and valuable and this repository will betraining ground.
+
+---
+**All synthesis results have been obtained using  the xa7a12tcpg238-2I part and on Vitis 2024.2**
+---
+
 

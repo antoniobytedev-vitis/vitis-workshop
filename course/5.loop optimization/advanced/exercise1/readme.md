@@ -9,4 +9,3 @@ Add the pragma loop merge to merge both outer loops and synthesize the results. 
 | **FFs Used**                  |                        |                                 |                                    |
 |**BRAMs Used**||
 |**DSPs Used**||
-
