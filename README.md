@@ -1,5 +1,4 @@
 # learn-vitis-assets
-
 FPGAs (Field Programmable Gate Arrays) offer a unique balance between flexibility and performance, allowing developers to create highly parallel, low-latency hardware architectures tailored to specific workloads. However, designing hardware in the traditional way by using languages like VHDL or Verilog and often requires deep knowledge of digital logic, timing closure, and microarchitecture design. This barrier makes FPGA development difficult to approach for students, software engineers, and researchers who come from a high-level programming background.
 
 **Vitis HLS** (High-Level Synthesis) bridges that gap.  
