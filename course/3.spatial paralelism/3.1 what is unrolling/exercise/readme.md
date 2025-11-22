@@ -8,5 +8,5 @@ Synthesize the code thrice, once without unroll, once unrolling with a factor of
 | **LUTs Used**                 |                  |                               |                                    |
 | **FFs Used**                  |                    |                                 |                              |
 | **DSPs Used**                 |                     |                               |                                   |
-|
+
 
