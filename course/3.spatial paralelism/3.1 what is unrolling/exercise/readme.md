@@ -7,6 +7,6 @@ Synthesize the code thrice, once without unroll, once unrolling with a factor of
 | **Latency in second loop (cycles)**    |                      |                              |                                   |
 | **LUTs Used**                 |                  |                               |                                    |
 | **FFs Used**                  |                    |                                 |                              |
-| **DSPs Used**                 |                     |                               |                                   |
-
+| **DSPs Used**                 |                      |                               |                                   |
+|**BRAMs Used**|||
 
