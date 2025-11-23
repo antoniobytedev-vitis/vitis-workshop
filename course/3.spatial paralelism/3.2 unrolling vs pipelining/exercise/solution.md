@@ -20,7 +20,9 @@ With both, the design achieves the highest throughput, combining parallelism and
 ## Finished table
 | Metric                     | **No pragmas** | **Only pipeline** | **Only unroll** | **Unroll and Pipeline** |
 | -------------------------- | -------------- | ----------------- | --------------- | ----------------------- |
-| **Total Latency (cycles)** | 769            | 259               | 385             | 131                     |
-| **LUTs Used**              | 102            | 109               | 124             | 134                     |
-| **DSPs Used**              | 54             | 62                | 93              | 11                      |
+| **Total Latency (cycles)** | 8193          |      1032         | 4097            |     520                 |
+| **LUTs Used**              | 290            |     309           | 474             | 528                   |
+| **FFs Used**               |  300              |   369                |   578              |     713                    |
+| **BRAMs Used**             | 0              | 0                 |0                |0                        |
+| **DSPs Used**              | 2             |     2            | 4              | 4                      |
 
