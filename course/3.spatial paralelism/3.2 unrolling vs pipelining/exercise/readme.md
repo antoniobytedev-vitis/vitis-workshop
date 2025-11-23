@@ -13,7 +13,6 @@ One using both
 Note: Vitis tries to pipeline the code automatically so you need to turn it off manually when needed.
 ```
 ## Finished table
-## Finished table
 | Metric                     | **No pragmas** | **Only pipeline** | **Only unroll** | **Unroll and Pipeline** |
 | -------------------------- | -------------- | ----------------- | --------------- | ----------------------- |
 | **Total Latency (cycles)** |                |                   |                 |                         |
